@@ -1,0 +1,27 @@
+<html>
+    <head>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.19.0/css/xterm.css">
+      <script src="https://cdn.jsdelivr.net/npm/xterm@4.19.0/lib/xterm.js"></script>
+    </head>
+    <body>
+      <div id="terminal"></div>
+      <script>
+
+        const socket = new WebSocket('ws://localhost:3000/so');
+
+        socket.addEventListener('open', (event) => {
+            socket.send('\0');
+        });
+
+        socket.addEventListener('message', (event) => {
+          term.write(event.data)
+        });
+
+        var term = new Terminal();
+        term.open(document.getElementById('terminal'));
+        term.onData((data) => {
+          socket.send(data);
+        })
+      </script>
+    </body>
+  </html>

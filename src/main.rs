@@ -1,5 +1,6 @@
 mod server;
-pub mod service;
+mod service;
+mod pty;
 
 fn main() {
 
